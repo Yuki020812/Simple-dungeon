@@ -9,19 +9,22 @@ public abstract class Enemy : MonoBehaviour
     private SpriteRenderer spriteRender;
     private Color originColor;
     public float flashTime;
-    private PlayerHealth playerHealth;
     public GameObject bloodEffect;
     public GameObject dropItem;
+    public GameObject floatPoint;
+    private PlayerHealth playerHealth;
+    private FloatPointController fpc;
     // Start is called before the first frame update
-    public void Start()
+    public virtual void Start()
     {
         spriteRender = GetComponent<SpriteRenderer>();
         playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
         originColor = spriteRender.color;
+        fpc = FindObjectOfType<FloatPointController>().GetComponent<FloatPointController>();
     }
 
     // Update is called once per frame
-    public void Update()
+    public virtual void Update()
     {
         if (hp <= 0)
         {
@@ -35,6 +38,7 @@ public abstract class Enemy : MonoBehaviour
         hp -= damage;
         ChangeColor(flashTime);
         Instantiate(bloodEffect,transform.position,Quaternion.identity);
+        fpc.ShowDamage(damage, transform.position);
         GameController.camShake.Shake();
     }
 

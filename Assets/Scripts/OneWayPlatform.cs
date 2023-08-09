@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class OneWayPlatform : MonoBehaviour
 {
-    private CompositeCollider2D CompositeCollider2D;
+    private CompositeCollider2D compositeCollider2D;
     // Start is called before the first frame update
     void Start()
     {
-        CompositeCollider2D = GetComponent<CompositeCollider2D>();
+        compositeCollider2D = GetComponent<CompositeCollider2D>();
     }
 
     // Update is called once per frame
@@ -34,7 +34,7 @@ public class OneWayPlatform : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.C) && Input.GetKey(KeyCode.DownArrow) && collision.collider.CompareTag("Player"))
         {
-            CompositeCollider2D.isTrigger = true;
+            compositeCollider2D.isTrigger = true;
         }
     }
 
@@ -44,7 +44,7 @@ public class OneWayPlatform : MonoBehaviour
         {
             //collision.GetComponent<BoxCollider2D>().isTrigger = false;
             //collision.GetComponent<CapsuleCollider2D>().isTrigger = false;
-            CompositeCollider2D.isTrigger = false;
+            compositeCollider2D.isTrigger = false;
         } 
     }
 

@@ -13,9 +13,17 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public float fallMultiplier;
     public float lowJumpMultiplier;
+    [Header("CD的UI组件")] 
+    public float dashTime;//dash时长
+    private float dashTimeLeft;//冲锋剩余时间
+    private float lashDash = -10f;//上一次dash时间点
+    public float dashCoolDown;
+    public float dashSpeed;
+    private float faceDirection;
     public LayerMask Ground;
     PlayerAttack playerAttack;
     private bool isGround = true;
+    private bool isDashing;
     private bool isOneWayPlatform = false;
     private bool falling = false;
     private int jumpAmount;
@@ -38,25 +46,52 @@ public class PlayerController : MonoBehaviour
         if (GameController.isGameAlive)
         {
             CheckGround();
+            Flip();
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                if (Time.time >= (lashDash + dashCoolDown))
+                {
+                    ReadyToDash();
+                }
+            }
             Jump();
             ChangeAnimator();
         }
     }
 
+
     private void FixedUpdate()
     {
         Run();
+        Dash();
     }
 
+    void Flip()
+    {
+        bool isPlayerHasSpeedX = Mathf.Abs(rd.velocity.x) > Mathf.Epsilon;
+        if (isPlayerHasSpeedX)
+        {
+            if (rd.velocity.x > 0.1f)
+            {
+                transform.localRotation = Quaternion.Euler(0,0,0);
+            }
+
+            if (rd.velocity.x < -0.1f)
+            {
+                transform.localRotation = Quaternion.Euler(0,180,0);
+            }
+        }
+    }
+    
     void Run()
     {
-        float moveDir = Input.GetAxis("Horizontal");
-        float faceDirection = Input.GetAxisRaw("Horizontal");
+        float moveDir = Input.GetAxis("Horizontal"); 
+        faceDirection = Input.GetAxisRaw("Horizontal");
         anim.SetFloat("Speed",Mathf.Abs( moveDir));
-        if (faceDirection != 0)
-        {
-            transform.localScale = new Vector2(faceDirection, 1);
-        }
+        // if (faceDirection != 0)
+        // {
+        //     transform.localScale = new Vector2(faceDirection, 1);
+        // }
         rd.velocity = new Vector2 (moveDir*runSpeed*Time.deltaTime, rd.velocity.y);
     }
 
@@ -64,10 +99,10 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.C)&&!Input.GetKey(KeyCode.DownArrow))
         {
-            if (jumpAmount == 0 && isGround)
+            if (jumpAmount == 0 )
             {
                 jumpAmount++;
-                isGround = false;
+                //isGround = false;
                 anim.SetBool("Ground", isGround);
                 rd.velocity = new Vector2(rd.velocity.x, jumpForce * Time.deltaTime);
                 rd.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
@@ -75,9 +110,10 @@ public class PlayerController : MonoBehaviour
             else if(jumpAmount >0  && jumpAmount<maxJumpAmount)
             {
                 jumpAmount++;
-                isGround = false;
+                //isGround = false;
                 anim.SetBool("Ground", isGround);
-                rd.velocity = new Vector2(rd.velocity.x, jumpForce * Time.deltaTime);
+                //rd.velocity = new Vector2(rd.velocity.x, jumpForce * Time.deltaTime);
+                rd.velocity = new Vector2(rd.velocity.x, 0);
                 rd.AddForce(Vector2.up*jumpForce,ForceMode2D.Impulse);
             }
         }
@@ -98,6 +134,45 @@ public class PlayerController : MonoBehaviour
         isOneWayPlatform =  coll.IsTouchingLayers(LayerMask.GetMask("OneWayPlatform"));
     }
 
+    void Dash()
+    {
+        if (isDashing)
+        {
+            if (dashTimeLeft > 0)
+            {
+                if (rd.velocity.y > 0 && !isGround)
+                {
+                    rd.velocity = new Vector2(dashSpeed*faceDirection,jumpForce);
+                }
+
+                rd.velocity = new Vector2(dashSpeed * faceDirection, rd.velocity.y);
+
+                dashTimeLeft -= Time.deltaTime;
+
+                ShadowPool.instance.GetFormPool();
+                
+            }
+
+            if (dashTimeLeft <= 0)
+            {
+                isDashing = false;
+                if (!isGround)
+                {
+                    rd.velocity = new Vector2(dashSpeed * faceDirection, jumpAmount);
+                }
+            }
+        }
+    }
+
+    void ReadyToDash()
+    {
+        isDashing = true;
+        
+        dashTimeLeft = dashTime;
+
+        lashDash = Time.time;
+    }
+    
     void Attack()
     {
         playerAttack.AttackHitBox.enabled = true;

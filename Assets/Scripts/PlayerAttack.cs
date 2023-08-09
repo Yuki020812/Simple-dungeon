@@ -7,7 +7,7 @@ public class PlayerAttack : MonoBehaviour
     public int damage;
     public bool isAttack = false;
     public PolygonCollider2D AttackHitBox;
-    private Animator anim;
+    public Animator anim;
 
     void Start()
     {

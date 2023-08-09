@@ -12,7 +12,7 @@ public class EnemyBat : Enemy
     public Transform leftDownPos;
     public Transform rightUpPos;
     // Start is called before the first frame update
-    void Start()
+    new void Start()
     {
         base.Start();
         waitTime = startWaitTime;
@@ -20,7 +20,7 @@ public class EnemyBat : Enemy
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         base.Update();
 

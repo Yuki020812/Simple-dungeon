@@ -6,7 +6,7 @@ using UnityEngine;
 public class Sign : MonoBehaviour
 {
     public string ContentText = "";
-    public GameObject DialogBox;
+    //public GameObject DialogBox;
     private bool isSign = false;
     private DialogBoxText dialogText;
     // Start is called before the first frame update

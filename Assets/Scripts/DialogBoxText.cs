@@ -25,11 +25,13 @@ public class DialogBoxText : MonoBehaviour
     {
         dialogText.text = text;
         contentText.text = text;
-        transform.gameObject.SetActive(true);
+        //transform.gameObject.SetActive(true);
+        transform.localScale = Vector3.one;
     }
 
     public void Hide()
     {
-        transform.gameObject.SetActive(false);
+        //transform.gameObject.SetActive(false);
+        transform.localScale = Vector3.zero;
     }
 }
