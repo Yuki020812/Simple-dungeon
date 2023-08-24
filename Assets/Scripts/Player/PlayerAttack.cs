@@ -6,7 +6,11 @@ public class PlayerAttack : MonoBehaviour
 {
     public int damage;
     public bool isAttack = false;
+<<<<<<< HEAD:Assets/Scripts/Player/PlayerAttack.cs
     public PolygonCollider2D attackHitBox;
+=======
+    public PolygonCollider2D AttackHitBox;
+>>>>>>> 0887a4aff6410cfdee15a76485c274c1a6b5c839:Assets/Scripts/PlayerAttack.cs
     public Animator anim;
 
     void Start()
