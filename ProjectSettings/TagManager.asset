@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
-  - CaremaShake
+  - CameraShake
   layers:
   - Default
   - TransparentFX
@@ -18,8 +18,8 @@ TagManager:
   - Ground
   - Item
   - ItemTrigger
-  - 
-  - 
+  - Enemy
+  - Weapon
   - 
   - 
   - 
@@ -55,9 +55,15 @@ TagManager:
   - name: Enemy
     uniqueID: 2534499247
     locked: 0
+  - name: Weapon
+    uniqueID: 4021232915
+    locked: 0
   - name: Item
     uniqueID: 586674959
     locked: 0
   - name: Player
     uniqueID: 3082938551
+    locked: 0
+  - name: UI
+    uniqueID: 1605480819
     locked: 0

@@ -1,0 +1,15 @@
+[
+  {
+    "id": 1,
+    "name": "BeJson",
+    "type": "Consumable",
+    "quality": "Common",
+    "description": "it can recover some HP",
+    "capacity": 10,
+    "buyPrice": 10,
+    "sellPrice": 5,
+    "hp": 10,
+    "mp": 0,
+    "sprite": "Sprite/Items/hp"
+  }
+]
