@@ -13,7 +13,7 @@ public class Consumable : Item
         Mp = mp;
     }
 
-    public string GetToolTipText()
+    public override string GetToolTipText()
     {
         string text = base.GetToolTipText();
         string newtext = "";

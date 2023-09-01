@@ -20,7 +20,7 @@ public class Weapon : Item
         DoubleHand
     }
 
-    public string GetToolTipText()
+    public override string GetToolTipText()
     {
         string text = base.GetToolTipText();
         string newtext = "";

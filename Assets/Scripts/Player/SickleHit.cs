@@ -16,7 +16,8 @@ public class SickleHit : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.V))
         {
-            Instantiate(sickle,transform.position,transform.rotation);
+            // Instantiate(sickle,transform.position,transform.rotation);
+            SicklePool.instance.GetFormPool();
         }
     }
 }

@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShadowPool : MonoBehaviour
@@ -50,9 +48,7 @@ public class ShadowPool : MonoBehaviour
         {
             FillPool();
         }
-        Debug.Log(availableObjects.Count);
         var outShadow = availableObjects.Dequeue() as GameObject;
-        Debug.Log(availableObjects.Count);
         outShadow.SetActive(true);
         
         return outShadow;

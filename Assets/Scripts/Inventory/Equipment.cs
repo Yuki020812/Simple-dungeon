@@ -48,7 +48,7 @@ public class Equipment : Item
         Glove
     }
 
-    public string GetToolTipText()
+    public override string GetToolTipText()
     {
         string text = base.GetToolTipText();
         string newtext = "";
